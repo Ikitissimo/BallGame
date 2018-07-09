@@ -4,14 +4,14 @@ import os
 size = width, height = 750, 422
 screen = pygame.display.set_mode(size)
 
-img_path = os.path.join('/Users/riccardob/Desktop/Py/BallGame/', 'ball.png')
-background_image = pygame.image.load('/Users/riccardob/Desktop/Py/BallGame/background.jpg').convert()
+img_path = os.path.join(os.getcwd())
+background_image = pygame.image.load('background.jpg').convert()
 
 pygame.display.set_caption("BallGame")
 
 class Ball(object):
     def __init__(self):
-        self.image = pygame.image.load(img_path)
+        self.image = pygame.image.load("ball.png")
         self.image_rect = self.image.get_rect()
         self.image_rect.x
         self.image_rect.y
@@ -19,13 +19,13 @@ class Ball(object):
     def handle_keys(self):
         key = pygame.key.get_pressed()
         dist = 5
-        if key[pygame.K_DOWN]:
+        if key[pygame.K_DOWN] and self.image_rect.y < 321:
             self.image_rect.y += dist
-        elif key[pygame.K_UP]:
+        elif key[pygame.K_UP] and self.image_rect.y > 0:
             self.image_rect.y -= dist
-        if key[pygame.K_RIGHT]:
+        if key[pygame.K_RIGHT] and self.image_rect.x < 649:
             self.image_rect.x += dist
-        elif key[pygame.K_LEFT]:
+        elif key[pygame.K_LEFT] and self.image_rect.x > 0:
             self.image_rect.x -= dist
 
     def draw(self, surface):
@@ -39,8 +39,10 @@ clock = pygame.time.Clock()
 
 running = True
 while running:
+    esc_key = pygame.key.get_pressed()
     for event in pygame.event.get():
-        if event.type == pygame.QUIT:
+        if esc_key[pygame.K_ESCAPE]:
+            pygame.display.quit()
             pygame.quit()
             running = False
 
