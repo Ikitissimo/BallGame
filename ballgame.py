@@ -15,27 +15,42 @@ class Ball(object):
         self.image_rect = self.image.get_rect()
         self.image_rect.x
         self.image_rect.y
+        self.facing = 'LEFT'
 
     def handle_keys(self):
         key = pygame.key.get_pressed()
         dist = 5
         if key[pygame.K_DOWN] and self.image_rect.y < 321:
+            self.facing = 'DOWN'
             self.image_rect.y += dist
         elif key[pygame.K_UP] and self.image_rect.y > 0:
+            self.facing = 'UP'
             self.image_rect.y -= dist
         if key[pygame.K_RIGHT] and self.image_rect.x < 649:
+            self.facing = 'RIGHT'
             self.image_rect.x += dist
         elif key[pygame.K_LEFT] and self.image_rect.x > 0:
+            self.facing = 'LEFT'
             self.image_rect.x -= dist
 
     def draw(self, surface):
-        surface.blit(self.image, (self.image_rect.x, self.image_rect.y))
+        if self.facing == "RIGHT":
+            surface.blit(pygame.transform.flip(self.image, True, False),(self.image_rect.x,self.image_rect.y))
+        elif self.facing == "DOWN":
+            surface.blit(pygame.image.load("ball_down.png"),(self.image_rect.x,self.image_rect.y))
+        if self.facing == "UP":
+            surface.blit(pygame.image.load("ball_up.png"),(self.image_rect.x,self.image_rect.y))
+        elif self.facing == "LEFT":
+            surface.blit(self.image,(self.image_rect.x,self.image_rect.y))
 
 pygame.init()
 screen = pygame.display.set_mode((750, 422))
 
 ball = Ball()
 clock = pygame.time.Clock()
+
+pygame.mixer.music.load("bg_music.mp3")
+pygame.mixer.music.play(-1, 0.0)
 
 running = True
 while running:
