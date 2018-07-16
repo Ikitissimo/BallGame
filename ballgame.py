@@ -6,6 +6,8 @@ screen = pygame.display.set_mode(size)
 
 img_path = os.path.join(os.getcwd())
 background_image = pygame.image.load('background.jpg').convert()
+bg_image_rect = background_image.get_rect()
+pygame.mixer.pre_init(44100, 16, 2, 4096)
 
 pygame.display.set_caption("BallGame")
 
@@ -43,6 +45,7 @@ class Ball(object):
         elif self.facing == "LEFT":
             surface.blit(self.image,(self.image_rect.x,self.image_rect.y))
 
+
 pygame.init()
 screen = pygame.display.set_mode((750, 422))
 
@@ -63,8 +66,14 @@ while running:
 
     ball.handle_keys()
 
-    screen.blit(background_image, [0, 0])
+    screen.blit(background_image, bg_image_rect)
+    screen.blit(background_image, bg_image_rect.move(bg_image_rect.width, 0))
+    bg_image_rect.move_ip(-2, 0)
+    if bg_image_rect.right == 0:
+        bg_image_rect.x == 0
+
+
     ball.draw(screen)
     pygame.display.update()
 
-    clock.tick(40)
+    clock.tick(60)
