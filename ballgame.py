@@ -69,8 +69,8 @@ while running:
     screen.blit(background_image, bg_image_rect)
     screen.blit(background_image, bg_image_rect.move(bg_image_rect.width, 0))
     bg_image_rect.move_ip(-2, 0)
-    if bg_image_rect.right == 0:
-        bg_image_rect.x == 0
+    if bg_image_rect.right <= 0:
+        bg_image_rect.x = 0
 
 
     ball.draw(screen)
