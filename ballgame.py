@@ -43,8 +43,16 @@ class Ball(object):
         if self.facing == "UP":
             surface.blit(pygame.image.load("ball_up.png"),(self.image_rect.x,self.image_rect.y))
         elif self.facing == "LEFT":
-            surface.blit(self.image,(self.image_rect.x,self.image_rect.y))
-
+            surface.blit(self.image,(self.image_rect.x,self.image_rect.y
+                                     
+class Angryball(object):
+    def __init__(self,x,y):
+        self.image = pygame.image.load("image2load")
+        self.image_rect = self.image.get_rect()
+        self.image_rect.x
+        self.image_rect.y
+        self.facing = 'LEFT'                                     
+                                    
 
 pygame.init()
 screen = pygame.display.set_mode((750, 422))
